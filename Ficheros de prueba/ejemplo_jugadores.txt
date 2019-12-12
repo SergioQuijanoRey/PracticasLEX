@@ -1,0 +1,24 @@
+sqlite> SELECT * FROM Jugadores ;
+codJ        codE        nombreJ
+----------  ----------  ------------------
+PLY1        GRD         "Sergio Quijano Rey"
+PLY2        GRD         "Pablo Ruiz Bueno"
+PLY3        GRD         "Laura Ruiz"
+PLY4        GRD         "Lucia Salamanca"
+PLY5        GRD         "Adrian Lopez"
+PLY6        MLG         "Manuel Lopez"
+PLY7        MLG         "Rosa Parks"
+PLY8        MLG         "James Harden"
+PLY9        MLG         "Tomas Lee"
+PLY10       MLG         "Thomas Shelby"
+PLY11       JAN         "Pau Gasol"
+PLY12       JAN         "Mark Gasol"
+PLY13       JAN         "Soraya Silvia"
+PLY14       JAN         "Silvia Soraya"
+PLY15       JAN         "Mario Cagigas"
+PLY16       CDZ         "Luis Rodriguez"
+PLY17       CDZ         "Luis Tormo"
+PLY18       CDZ         "Luis Barcenas"
+PLY19       CDZ         "Francisco Garcia"
+PLY20       CDZ         "Diego Mantilla"
+sqlite>
