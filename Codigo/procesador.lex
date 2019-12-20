@@ -10,7 +10,7 @@
 %}
 
 
-caracter            [a-zA-Z.,]
+caracter            [a-zA-Z\.,]
 digito              [0-9]
 especial            [\*;]
 espacio             " "
@@ -19,7 +19,7 @@ salto               \n
 palabra             ({caracter}|{digito})+
 entrecomillado      \"({palabra}|{espacio})*\"
 separador           -+
-comando             ^sql*>({espacio}*({caracter}|{digito}|{especial}))*
+comando             ^sqlite>({espacio}*({caracter}|{digito}|{especial}))*
 
 %%
 
