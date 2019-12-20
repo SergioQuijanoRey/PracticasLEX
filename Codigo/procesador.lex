@@ -19,7 +19,7 @@ salto               \n
 palabra             ({caracter}|{digito})+
 entrecomillado      \"({palabra}|{espacio})*\"
 separador           -+
-comando             ^sqlite>({espacio}*({caracter}|{digito}|{especial}))*
+comando             ^sql*>({espacio}*({caracter}|{digito}|{especial}))*
 
 %%
 
