@@ -5,8 +5,8 @@ procesador: lex.yy.c
 	gcc lex.yy.c -lfl -o procesador
 
 exe: procesador
-	@./procesador "../Ficheros de prueba/ejemplo_jugadores.txt"
+	@./procesador "../test_files/ejemplo_jugadores.txt"
 
 clean:
 	@rm -f *.c
-	@rm -f pruebas
+	@rm -f procesador

@@ -19,10 +19,12 @@ salto               \n
 palabra             ({caracter}|{digito})+
 entrecomillado      \"({palabra}|{espacio})*\"
 separador           -+
-comando             ^sqlite>({espacio}*({caracter}|{digito}|{especial}))*
+prompt              sqlite>
+comando             ^{prompt}({espacio}*({caracter}|{digito}|{especial}))*
 
 %%
 
+{prompt}                                    {printf("De puta madre\n");}
 {comando}[^-]*({separador}|{espacio})*      {;}
 {comando}                                   {;}
 {separador}                                 {;}
