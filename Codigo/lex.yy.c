@@ -1848,12 +1848,28 @@ void init_command(){
 
 void procesar_palabra(char * palabra, int palabra_size){
     int acabado = 0;
-    for(int i = 0; i < palabra_size && acabado == 0; i++){
-        if(palabra[i] != ' ' && palabra[i] != '\0'){
-            printf("%c", palabra[i]);
-        }else{
-            acabado = 1;
+
+    // Se procesa una palabra que no es entrecomillada
+    if(palabra[0] != '\"'){
+        for(int i = 0; i < palabra_size && acabado == 0; i++){
+            if(palabra[i] != ' ' && palabra[i] != '\0'){
+                printf("%c", palabra[i]);
+            }else{
+                acabado = 1;
+            }
         }
+
+    // Se procesa una palabra entrecomillada
+    }else{
+        printf("\"");
+        for(int i = 1; i < palabra_size && acabado == 0; i++){
+            if(palabra[i] != '\"' && palabra[i] != '\0'){
+                printf("%c", palabra[i]);
+            }else{
+                acabado = 1;
+            }
+        }
+        printf("\"");
     }
     printf(", ");
 }
@@ -1863,18 +1879,32 @@ void procesar_palabra_fin(char * palabra, int palabra_size){
 }
 
 void procesar_palabra_fin_documento(char * palabra, int palabra_size){
-    // Se me pasa
-    // Roma
-    // sqlite>
     int acabado = 0;
-    for(int i = 0; i < palabra_size && acabado == 0; i++){
-        if(palabra[i] != ' ' && palabra[i] != '\0' && palabra[i] != '\n'){
-            printf("%c", palabra[i]);
-        }else{
-            acabado = 1;
+
+    // Se procesa una palabra que no esta entrecomillada
+    if(palabra[0] != '\"'){
+        for(int i = 0; i < palabra_size && acabado == 0; i++){
+            if(palabra[i] != ' ' && palabra[i] != '\0' && palabra[i] != '\n'){
+                printf("%c", palabra[i]);
+            }else{
+                acabado = 1;
+            }
         }
+        printf(");\n");
+
+    // Se procesa una palabra comillada
+    }else{
+        printf("\"");
+        for(int i = 1; i < palabra_size && acabado == 0; i++){
+            if(palabra[i] == '\"'){
+                acabado = 1;
+            }else{
+                printf("%c", palabra[i]);
+            }
+        }
+
+        printf("\");\n");
     }
-    printf(");\n");
 }
 
 void procesar_palabra_inicio(char * palabra, int palabra_size){
