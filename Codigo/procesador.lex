@@ -6,6 +6,7 @@
     void procesar_palabra(char * palabra, int palabra_size);
     void procesar_palabra_fin(char * palabra, int palabra_size);
     void procesar_palabra_inicio(char * palabra, int palabra_size);
+    void procesar_palabra_fin_documento(char * palabra, int palabra_size);
 
 %}
 
@@ -24,12 +25,13 @@ comando             ^{prompt}({espacio}*({caracter}|{digito}|{especial}))*
 
 %%
 
-{comando}[^-]*({separador}|{espacio})*      {;}
-{comando}                                   {;}
-{separador}                                 {;}
-({palabra}|{entrecomillado})$               {procesar_palabra_fin(yytext, yyleng);}
-^(({palabra}|{entrecomillado}){espacio}*)   {procesar_palabra_inicio(yytext, yyleng);}
-(({palabra}|{entrecomillado}){espacio}*)    {procesar_palabra(yytext, yyleng);}
+{comando}[^-]*({separador}|{espacio})*          {;}
+{comando}                                       {;}
+{separador}                                     {;}
+({palabra}|{entrecomillado}){salto}{prompt}     {procesar_palabra_fin_documento(yytext, yyleng);}
+({palabra}|{entrecomillado})$                   {procesar_palabra_fin(yytext, yyleng);}
+^(({palabra}|{entrecomillado}){espacio}*)       {procesar_palabra_inicio(yytext, yyleng);}
+(({palabra}|{entrecomillado}){espacio}*)        {procesar_palabra(yytext, yyleng);}
 
 %% 
 
@@ -65,6 +67,21 @@ void procesar_palabra(char * palabra, int palabra_size){
 
 void procesar_palabra_fin(char * palabra, int palabra_size){
     printf("%s),", palabra);
+}
+
+void procesar_palabra_fin_documento(char * palabra, int palabra_size){
+    // Se me pasa
+    // Roma
+    // sqlite>
+    int acabado = 0;
+    for(int i = 0; i < palabra_size && acabado == 0; i++){
+        if(palabra[i] != ' ' && palabra[i] != '\0' && palabra[i] != '\n'){
+            printf("%c", palabra[i]);
+        }else{
+            acabado = 1;
+        }
+    }
+    printf(");\n");
 }
 
 void procesar_palabra_inicio(char * palabra, int palabra_size){
