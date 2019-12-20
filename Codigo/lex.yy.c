@@ -486,14 +486,50 @@ char *yytext;
 #line 3 "procesador.lex"
     #include <stdlib.h>
 
+    /**
+     * @brief Comando que muestra el inicio del comando de insercion de SQL
+     * */
     void init_command();
+
+    /**
+     * @brief Procesa una palabra que no se encuentra ni en el inicio de la linea
+     *        ni al final de la linea
+     * @param palabra, la palabra que se procesa
+     * @param palabra_size, el tamaño de la palabra que se procesa
+     * */
     void procesar_palabra(char * palabra, int palabra_size);
+
+    /**
+     * @brief Procesa una palabra que esta al final de una linea
+     * @param palabra, la palabra que se procesa
+     * @param palabra_size, el tamaño de la palabra que se procesa
+     *
+     * Lo que cambia es que debemos añadir el cierre de parentesis: ),
+     * */
     void procesar_palabra_fin(char * palabra, int palabra_size);
+
+    /**
+     * @brief procesa una palabra que se encuentra al final de una linea
+     * @param palabra, la palabra que se procesa
+     * @param palabra_size, el tamaño de la palabra que se procesa
+     *
+     * Lo que cambia es que hay que añadir una tabulacion y apertura de parentesis:
+     * \t(
+     * */
     void procesar_palabra_inicio(char * palabra, int palabra_size);
+
+    /**
+     * @brief Procesa una palabra que esta al final de toda la tabla
+     * @param palabra, la palabra que se procesa
+     * @param palabra_size, el tamaño de la palabra que se procesa
+     *
+     * Lo que cambia es que debemos añadir el cierre de parentesis y ademas un
+     * punto y coma en vez de una coma: );
+     * */
     void procesar_palabra_fin_documento(char * palabra, int palabra_size);
 
-#line 495 "lex.yy.c"
-#line 496 "lex.yy.c"
+#line 531 "lex.yy.c"
+#line 532 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -713,10 +749,10 @@ YY_DECL
 		}
 
 	{
-#line 27 "procesador.lex"
+#line 63 "procesador.lex"
 
 
-#line 719 "lex.yy.c"
+#line 755 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -777,23 +813,23 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 29 "procesador.lex"
+#line 65 "procesador.lex"
 {;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 30 "procesador.lex"
+#line 66 "procesador.lex"
 {;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 31 "procesador.lex"
+#line 67 "procesador.lex"
 {;}
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 32 "procesador.lex"
+#line 68 "procesador.lex"
 {procesar_palabra_fin_documento(yytext, yyleng);}
 	YY_BREAK
 case 5:
@@ -801,25 +837,25 @@ case 5:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 33 "procesador.lex"
+#line 69 "procesador.lex"
 {procesar_palabra_fin(yytext, yyleng);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 34 "procesador.lex"
+#line 70 "procesador.lex"
 {procesar_palabra_inicio(yytext, yyleng);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 35 "procesador.lex"
+#line 71 "procesador.lex"
 {procesar_palabra(yytext, yyleng);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 37 "procesador.lex"
+#line 73 "procesador.lex"
 ECHO;
 	YY_BREAK
-#line 822 "lex.yy.c"
+#line 858 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1827,7 +1863,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 37 "procesador.lex"
+#line 73 "procesador.lex"
 
 
 int main(int argc, char ** argv){
@@ -1835,7 +1871,7 @@ int main(int argc, char ** argv){
     if(argc == 2){
         yyin = fopen(argv[1], "rt");
     }else{
-        printf("El fichero %s no se puede abrir", argv[1]);
+        printf("El fichero %s no se puede abrir\n", argv[1]);
         return 1;
     }
     

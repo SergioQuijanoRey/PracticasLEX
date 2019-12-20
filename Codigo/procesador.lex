@@ -2,10 +2,46 @@
 %{
     #include <stdlib.h>
 
+    /**
+     * @brief Comando que muestra el inicio del comando de insercion de SQL
+     * */
     void init_command();
+
+    /**
+     * @brief Procesa una palabra que no se encuentra ni en el inicio de la linea
+     *        ni al final de la linea
+     * @param palabra, la palabra que se procesa
+     * @param palabra_size, el tamaño de la palabra que se procesa
+     * */
     void procesar_palabra(char * palabra, int palabra_size);
+
+    /**
+     * @brief Procesa una palabra que esta al final de una linea
+     * @param palabra, la palabra que se procesa
+     * @param palabra_size, el tamaño de la palabra que se procesa
+     *
+     * Lo que cambia es que debemos añadir el cierre de parentesis: ),
+     * */
     void procesar_palabra_fin(char * palabra, int palabra_size);
+
+    /**
+     * @brief procesa una palabra que se encuentra al final de una linea
+     * @param palabra, la palabra que se procesa
+     * @param palabra_size, el tamaño de la palabra que se procesa
+     *
+     * Lo que cambia es que hay que añadir una tabulacion y apertura de parentesis:
+     * \t(
+     * */
     void procesar_palabra_inicio(char * palabra, int palabra_size);
+
+    /**
+     * @brief Procesa una palabra que esta al final de toda la tabla
+     * @param palabra, la palabra que se procesa
+     * @param palabra_size, el tamaño de la palabra que se procesa
+     *
+     * Lo que cambia es que debemos añadir el cierre de parentesis y ademas un
+     * punto y coma en vez de una coma: );
+     * */
     void procesar_palabra_fin_documento(char * palabra, int palabra_size);
 
 %}
@@ -41,7 +77,7 @@ int main(int argc, char ** argv){
     if(argc == 2){
         yyin = fopen(argv[1], "rt");
     }else{
-        printf("El fichero %s no se puede abrir", argv[1]);
+        printf("El fichero %s no se puede abrir\n", argv[1]);
         return 1;
     }
     
