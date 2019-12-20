@@ -29,7 +29,7 @@ comando             ^{prompt}({espacio}*({caracter}|{digito}|{especial}))*
 {comando}                                       {;}
 {separador}                                     {;}
 ({palabra}|{entrecomillado}){salto}{prompt}     {procesar_palabra_fin_documento(yytext, yyleng);}
-({palabra}|{entrecomillado})$                   {procesar_palabra_fin(yytext, yyleng);}
+({palabra}|{entrecomillado}){espacio}*$         {procesar_palabra_fin(yytext, yyleng);}
 ^(({palabra}|{entrecomillado}){espacio}*)       {procesar_palabra_inicio(yytext, yyleng);}
 (({palabra}|{entrecomillado}){espacio}*)        {procesar_palabra(yytext, yyleng);}
 
@@ -82,7 +82,32 @@ void procesar_palabra(char * palabra, int palabra_size){
 }
 
 void procesar_palabra_fin(char * palabra, int palabra_size){
-    printf("%s),", palabra);
+    int acabado = 0;
+
+    // Se procesa una palabra que no esta entrecomillada
+    if(palabra[0] != '\"'){
+        for(int i = 0; i < palabra_size && acabado == 0; i++){
+            if(palabra[i] != ' ' && palabra[i] != '\0' && palabra[i] != '\n'){
+                printf("%c", palabra[i]);
+            }else{
+                acabado = 1;
+            }
+        }
+        printf("),");
+
+    // Se procesa una palabra comillada
+    }else{
+        printf("\"");
+        for(int i = 1; i < palabra_size && acabado == 0; i++){
+            if(palabra[i] == '\"'){
+                acabado = 1;
+            }else{
+                printf("%c", palabra[i]);
+            }
+        }
+
+        printf("\"),");
+    }
 }
 
 void procesar_palabra_fin_documento(char * palabra, int palabra_size){
