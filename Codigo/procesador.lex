@@ -16,8 +16,9 @@ digito              [0-9]
 especial            [\*;]
 espacio             " "
 salto               \n
+barra               \/
 
-palabra             ({caracter}|{digito})+
+palabra             ({caracter}|{digito}|{barra})+
 entrecomillado      \"({palabra}|{espacio})*\"
 separador           -+
 prompt              {caracter}*sql{caracter}*>
@@ -25,13 +26,13 @@ comando             ^{prompt}({espacio}*({caracter}|{digito}|{especial}))*
 
 %%
 
-{comando}[^-]*({separador}|{espacio})*          {;}
-{comando}                                       {;}
-{separador}                                     {;}
-({palabra}|{entrecomillado}){salto}{prompt}     {procesar_palabra_fin_documento(yytext, yyleng);}
-({palabra}|{entrecomillado}){espacio}*$         {procesar_palabra_fin(yytext, yyleng);}
-^(({palabra}|{entrecomillado}){espacio}*)       {procesar_palabra_inicio(yytext, yyleng);}
-(({palabra}|{entrecomillado}){espacio}*)        {procesar_palabra(yytext, yyleng);}
+{comando}[^-]*({separador}|{espacio})*                      {;}
+{comando}                                                   {;}
+{separador}                                                 {;}
+({palabra}|{entrecomillado})({espacio})*{salto}{prompt}     {procesar_palabra_fin_documento(yytext, yyleng);}
+({palabra}|{entrecomillado}){espacio}*$                     {procesar_palabra_fin(yytext, yyleng);}
+^(({palabra}|{entrecomillado}){espacio}*)                   {procesar_palabra_inicio(yytext, yyleng);}
+(({palabra}|{entrecomillado}){espacio}*)                    {procesar_palabra(yytext, yyleng);}
 
 %% 
 
