@@ -55,12 +55,27 @@ void init_command(){
 
 void procesar_palabra(char * palabra, int palabra_size){
     int acabado = 0;
-    for(int i = 0; i < palabra_size && acabado == 0; i++){
-        if(palabra[i] != ' ' && palabra[i] != '\0'){
-            printf("%c", palabra[i]);
-        }else{
-            acabado = 1;
+
+    // Se procesa una palabra que no es entrecomillada
+    if(palabra[0] != '\"'){
+        for(int i = 0; i < palabra_size && acabado == 0; i++){
+            if(palabra[i] != ' ' && palabra[i] != '\0'){
+                printf("%c", palabra[i]);
+            }else{
+                acabado = 1;
+            }
         }
+
+    // Se procesa una palabra entrecomillada
+    }else{
+        for(int i = 0; i < palabra_size && acabado == 0; i++){
+            if(palabra[i] != '\"' && palabra[i] != '\0'){
+                printf("%c", palabra[i]);
+            }else{
+                acabado = 1;
+            }
+        }
+        printf("\"");
     }
     printf(", ");
 }
@@ -70,9 +85,6 @@ void procesar_palabra_fin(char * palabra, int palabra_size){
 }
 
 void procesar_palabra_fin_documento(char * palabra, int palabra_size){
-    // Se me pasa
-    // Roma
-    // sqlite>
     int acabado = 0;
     for(int i = 0; i < palabra_size && acabado == 0; i++){
         if(palabra[i] != ' ' && palabra[i] != '\0' && palabra[i] != '\n'){
